@@ -1,0 +1,4 @@
+.env
+*.txt.export
+*-transcript*.txt
+runs/

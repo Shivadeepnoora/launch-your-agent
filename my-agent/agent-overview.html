@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>repo-consistency-checker — agent schema</title>
+<link rel="stylesheet" href="overview.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="ident">
+      <div class="sigil">🤖</div>
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <h1>repo-consistency-checker</h1>
+          <span class="statepill planned"><span class="led planned"></span>PLANNED · NOT LAUNCHED</span>
+        </div>
+        <div class="byline">Claude Managed Agent · shivadeepnoora/launch-your-agent · created 2026-10-30</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-k">Model</div><div class="stat-v"><span class="dim">picked at launch</span></div></div>
+      <div class="stat"><div class="stat-k">Runs</div><div class="stat-v">Mon 8:00 <span class="dim">IST</span></div></div>
+      <div class="stat"><div class="stat-k">Agent</div><div class="stat-v"><span class="dim">at launch</span></div></div>
+      <div class="stat"><div class="stat-k">Deployment</div><div class="stat-v"><span class="dim">after first pass</span></div></div>
+    </div>
+  </div>
+
+  <p class="problem">Weekly consistency checker for launch-your-agent: mirror drift, broken references, JSON/HTML validity, stale API facts — report + patch, never pushes.</p>
+
+  <p class="lane-label">System schema</p>
+  <div class="pipeline">
+
+    <div class="col">
+      <p class="col-title">Trigger</p>
+      <div class="node key grow">
+        <div class="node-head"><span class="node-icon">🗓️</span><h2>Deployment</h2><span class="node-meta">cron · <b>0 8 * * 1</b></span></div>
+        <div class="node-body">
+          <div class="field"><div class="field-k">schedule · expression / timezone</div><strong>Every Monday · 8:00 AM</strong> <span class="sub small">Asia/Kolkata</span></div>
+          <div class="field"><div class="field-k">Status</div><span class="tag">created after the first run passes</span></div>
+          <div class="field"><div class="field-k">initial_events</div><p class="small sub">Each firing replays the 🎯 outcome (right) into a fresh ▶️ session with the repo freshly cloned.</p></div>
+        </div>
+        <div class="node-foot">▶️ Also runs on demand — <code>launch.sh</code> fires the same agent with the same outcome.</div>
+      </div>
+    </div>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <div class="col">
+      <p class="col-title">Worker</p>
+      <div class="env-frame">
+        <span class="env-tab">📦 environment · type: cloud · networking: unrestricted · packages: none</span>
+
+        <div class="node key">
+          <div class="node-head"><span class="node-icon">🤖</span><h2>Agent — repo-consistency-checker</h2><span class="node-meta"><b>model at launch</b> · v1 at launch</span></div>
+          <div class="node-body">
+            <div class="field"><div class="field-k">system · the job</div>
+              <p class="small">Audits the mounted repo for mirror drift, broken path references, JSON/HTML validity and stale CMA facts vs. the live docs; writes <code>report.md</code> + <code>fix.patch</code> to <code>/mnt/session/outputs/</code>.</p></div>
+          </div>
+        </div>
+
+        <div class="attach-grid">
+          <div class="attach">
+            <h3>🛠️ Tools</h3>
+            <p><code>tools[] · agent_toolset_20260401</code><br><span class="tag on">bash</span><span class="tag on">read</span><span class="tag on">grep</span><span class="tag on">web_fetch</span><span class="tag">write</span><span class="tag">edit</span><span class="tag">glob</span><span class="tag">web_search</span></p>
+          </div>
+          <div class="attach">
+            <h3>📂 GitHub repository</h3>
+            <p><code>resources[] · github_repository</code> <strong>shivadeepnoora/launch-your-agent</strong> @ main → <code>/workspace/launch-your-agent</code></p>
+          </div>
+          <div class="attach ghost">
+            <h3>🧠 Memory store</h3>
+            <p><code>resources[] · memory_store</code> — none in v0; accepted-findings memory is v1.</p>
+          </div>
+          <div class="attach ghost">
+            <h3>🔌 Connectors &amp; 🔐 vaults</h3>
+            <p><code>mcp_servers[]</code> + <code>vault_ids[]</code> — empty in v0. Issue/Slack delivery and gated PRs sit in the version rail.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <div class="col">
+      <p class="col-title">Output &amp; grading</p>
+
+      <div class="node">
+        <div class="node-head"><span class="node-icon">📤</span><h2>Deliverable</h2><span class="node-meta">files api</span></div>
+        <div class="node-body">
+          <p class="small"><code>report.md</code> — findings with file:line evidence · <code>fix.patch</code> — <code>git apply</code>-ready fix when anything is fixable.</p>
+          <div class="field"><div class="field-k">Guardrails in effect</div>
+            <span class="tag">max_iterations: 3</span><span class="tag">read-only — never pushes</span></div>
+        </div>
+      </div>
+
+      <div class="node key grow">
+        <div class="node-head"><span class="node-icon">🎯</span><h2>Outcome</h2><span class="node-meta"><b>user.define_outcome</b> · max_iterations 3</span></div>
+        <div class="node-body">
+          <p class="small sub" style="margin-bottom:8px;">Your definition of done — <code>rubric.content</code>, graded by the platform every run.</p>
+          <ol class="rubric small">
+            <li>All 3 mirror pairs compared byte-for-byte, verdict per pair</li>
+            <li>Every referenced repo path checked; missing ones listed</li>
+            <li>Build-sheet JSON parses; overview HTML links overview.css, no inline &lt;style&gt;</li>
+            <li>CMA facts checked against live docs, each finding with a source URL</li>
+            <li>Every finding has file:line evidence; nothing invented</li>
+            <li>report.md exists; fix.patch applies cleanly when there are fixes</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane-grid">
+    <div class="lane">
+      <div class="lane-head"><span class="node-icon">📜</span><h2>Sessions · run log</h2><span class="lane-meta">no runs yet</span></div>
+      <div class="lane-body">
+        <div class="overflow">
+        <table>
+          <thead><tr><th>Run</th><th>Session</th><th>Rubric</th><th>Verdict</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>—</td><td class="mono">—</td><td>—</td><td><span class="tag">no runs yet</span></td><td class="sub">The first launch fills this in.</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="lane-head"><span class="node-icon">🧪</span><h2>Evals</h2><span class="lane-meta">3 cases · regression</span></div>
+      <div class="lane-body">
+        <div class="overflow">
+        <table>
+          <thead><tr><th>Case</th><th>Known-good answer</th><th>Last verdict</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">case-01 clean main</td><td>No drift, all refs resolve</td><td><span class="tag">not run yet</span></td></tr>
+            <tr><td class="mono">case-02 planted drift</td><td>CSS mirror diff + renamed reference found</td><td><span class="tag">not run yet</span></td></tr>
+            <tr><td class="mono">case-03 planted breakage</td><td>Broken JSON + inlined &lt;style&gt; found</td><td><span class="tag">not run yet</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="small sub" style="margin:.5em 0 0;">Case 1 is the v0 input; the rest are held back and re-run before promoting any new agent version.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lane full">
+    <div class="lane-head"><span class="node-icon">🧭</span><h2>Next directions</h2><span class="lane-meta">the version rail</span></div>
+    <div class="lane-body">
+      <div class="rail">
+        <div class="ver">
+          <div class="ver-tag">v1</div>
+          <div class="ver-what">Only report new drift</div>
+          <div class="ver-why">Possible — scheduled for a later version</div>
+          <div class="ver-how">🧠 memory store <span class="mono">read_write</span> of accepted findings, attached to the deployment</div>
+        </div>
+        <div class="ver">
+          <div class="ver-tag">v1</div>
+          <div class="ver-what">Deliver the report as a GitHub issue / Slack message</div>
+          <div class="ver-why">Needs a write credential not on hand</div>
+          <div class="ver-how">🔌 GitHub MCP or Slack + 🔐 vault, gated <span class="mono">always_ask</span></div>
+        </div>
+        <div class="ver">
+          <div class="ver-tag">v2</div>
+          <div class="ver-what">Open the fix as a PR</div>
+          <div class="ver-why">Write-action — wait until the patches are trusted</div>
+          <div class="ver-how">GitHub MCP <span class="mono">mcp_toolset</span> <span class="mono">always_ask</span> + write-scope token</div>
+        </div>
+        <div class="ver">
+          <div class="ver-tag">v2</div>
+          <div class="ver-what">Run on every push to main</div>
+          <div class="ver-why">Possible — scheduled for a later version</div>
+          <div class="ver-how">GitHub Action → <span class="mono">POST /v1/deployments/&lt;id&gt;/run</span></div>
+        </div>
+        <div class="ver">
+          <div class="ver-tag">always</div>
+          <div class="ver-what">Re-run the eval cases before promoting a new version</div>
+          <div class="ver-why">Process habit, not a build task</div>
+          <div class="ver-how"><span class="mono">evals/run-evals.sh</span> against the new version</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>generated from build-sheet.json by claude code · live runs &amp; traces: <a href="https://platform.claude.com/workspaces/default/agents">open the console</a> (your key's workspace — swap "default" if yours differs)</footer>
+</div>
+</body>
+</html>

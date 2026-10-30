@@ -1,0 +1,3 @@
+Run this week's consistency audit of shivadeepnoora/launch-your-agent as checked out today at /workspace/launch-your-agent.
+
+Do all four checks from your instructions (mirror drift, broken references, JSON/HTML validity, stale CMA facts against the live docs), then write /mnt/session/outputs/report.md and, if anything in checks 1-3 is fixable, /mnt/session/outputs/fix.patch. Put today's date and the audited commit SHA (git rev-parse --short HEAD) in the report title.
