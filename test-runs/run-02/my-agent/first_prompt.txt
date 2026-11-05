@@ -1,0 +1,3 @@
+Prepare today's 10 new Hyderabad website-outreach leads.
+
+Follow your standing instructions and the website-outreach skill: read contacted/ and opted-out/ in the memory store first, find 10 new salons/spas, clinics/dentists or restaurants/cafes in Hyderabad that need a website (rotate categories and neighbourhoods), prove each gap with sources, build a demo page for each, draft an outbox email for every lead with a public business email and put the rest on the call sheet. Write leads.csv, call-sheet.csv, outbox/, demos/ and SUMMARY.md to /mnt/session/outputs/, then record today's 10 under contacted/ in the memory store, dated with today's date as of this run.

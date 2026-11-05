@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>{{BUSINESS_NAME}} · {{AREA}}, Hyderabad (preview concept)</title>
+<meta name="description" content="Preview concept for {{BUSINESS_NAME}}, {{AREA}}, Hyderabad. Not an official website.">
+<style>
+  /* Base tokens. A theme class on <body> overrides them. */
+  :root {
+    --bg: #f8f7f5;
+    --surface: #ffffff;
+    --text: #1f1f1f;
+    --muted: #555555;
+    --border: #e3e1dc;
+    --accent: #2f4f6f;
+    --accent-2: #4a6a8a;
+    --accent-ink: #ffffff;
+    --accent-soft: #e8eef4;
+    --link: #2f4f6f;
+    --hero-from: #eef1f4;
+    --hero-to: #f8f7f5;
+    --hero-text: #1f1f1f;
+    --hero-muted: #4f4f4f;
+    --shape-1: rgba(47, 79, 111, 0.14);
+    --shape-2: rgba(74, 106, 138, 0.10);
+    --banner-bg: #1f1f1f;
+    --banner-text: #ffffff;
+    --focus: #2f4f6f;
+    --hero-focus: #2f4f6f;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+    --font-display: var(--font-body);
+    --radius: 14px;
+  }
+
+  /* Salon & spa: soft rose / plum */
+  .theme-salon {
+    --bg: #fff7f9;
+    --surface: #ffffff;
+    --text: #2a1621;
+    --muted: #6a4a5b;
+    --border: #f0d6e1;
+    --accent: #8e2d5e;
+    --accent-2: #c25587;
+    --accent-ink: #ffffff;
+    --accent-soft: #f9e4ec;
+    --link: #8e2d5e;
+    --hero-from: #fde8ef;
+    --hero-to: #f1e1f4;
+    --hero-text: #2a1621;
+    --hero-muted: #5e3f50;
+    --shape-1: rgba(232, 140, 175, 0.35);
+    --shape-2: rgba(142, 45, 94, 0.16);
+    --banner-bg: #4a1d38;
+    --banner-text: #ffffff;
+    --focus: #8e2d5e;
+    --hero-focus: #8e2d5e;
+    --font-display: Georgia, "Times New Roman", serif;
+  }
+
+  /* Clinic & dentist: calm teal / white */
+  .theme-clinic {
+    --bg: #ffffff;
+    --surface: #f4f9f9;
+    --text: #0f2a2c;
+    --muted: #4a6466;
+    --border: #d5e8e6;
+    --accent: #0b6e69;
+    --accent-2: #2a9d8f;
+    --accent-ink: #ffffff;
+    --accent-soft: #e3f3f1;
+    --link: #0b6e69;
+    --hero-from: #e6f5f3;
+    --hero-to: #ffffff;
+    --hero-text: #0f2a2c;
+    --hero-muted: #3f5a5c;
+    --shape-1: rgba(42, 157, 143, 0.18);
+    --shape-2: rgba(11, 110, 105, 0.10);
+    --banner-bg: #0f3d3b;
+    --banner-text: #ffffff;
+    --focus: #0b6e69;
+    --hero-focus: #0b6e69;
+  }
+
+  /* Restaurant & cafe: warm saffron / charcoal */
+  .theme-restaurant {
+    --bg: #fbf7f0;
+    --surface: #ffffff;
+    --text: #24201c;
+    --muted: #5e554b;
+    --border: #eadfcc;
+    --accent: #f2a51a;
+    --accent-2: #e07a1f;
+    --accent-ink: #24201c;
+    --accent-soft: #fdf0d5;
+    --link: #8a4b00;
+    --hero-from: #24201c;
+    --hero-to: #3a3029;
+    --hero-text: #fdf6ea;
+    --hero-muted: #e9d9bf;
+    --shape-1: rgba(242, 165, 26, 0.28);
+    --shape-2: rgba(224, 122, 31, 0.18);
+    --banner-bg: #f2a51a;
+    --banner-text: #24201c;
+    --focus: #8a4b00;
+    --hero-focus: #f2a51a;
+    --font-display: Georgia, "Times New Roman", serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  h1, h2 { font-family: var(--font-display); line-height: 1.2; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--link); text-underline-offset: 0.15em; }
+  .wrap { width: 100%; max-width: 60rem; margin: 0 auto; padding: 0 1rem; }
+
+  /* Focus and skip link */
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+  .hero { --focus: var(--hero-focus); }
+  .skip-link {
+    position: absolute; left: 1rem; top: -4rem; z-index: 20;
+    background: var(--surface); color: var(--text);
+    padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600;
+  }
+  .skip-link:focus { top: 0.5rem; }
+
+  /* Preview banner: always visible, never removed */
+  .preview-banner {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--banner-bg); color: var(--banner-text);
+    font-size: 0.85rem; line-height: 1.4; text-align: center;
+    padding: 0.5rem 1rem;
+  }
+  .preview-banner p { max-width: 60rem; margin: 0 auto; font-weight: 600; }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--hero-from), var(--hero-to));
+    color: var(--hero-text);
+  }
+  .hero::before, .hero::after {
+    content: ""; position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .hero::before {
+    width: 22rem; height: 22rem; right: -8rem; top: -8rem;
+    background: radial-gradient(circle at 30% 30%, var(--shape-1), transparent 70%);
+  }
+  .hero::after {
+    width: 14rem; height: 14rem; left: -5rem; bottom: -6rem;
+    background: radial-gradient(circle at 60% 40%, var(--shape-2), transparent 70%);
+  }
+  .hero-inner { position: relative; z-index: 1; padding-top: 2.5rem; padding-bottom: 1.5rem; }
+  .monogram {
+    display: inline-grid; place-items: center;
+    width: 3.5rem; height: 3.5rem; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--accent-ink);
+    margin-bottom: 1rem;
+  }
+  /* Shows only the first letter of the business name, no image needed */
+  .monogram-letter {
+    display: inline-block; font-size: 0; line-height: 1;
+    white-space: nowrap; overflow: hidden; text-transform: uppercase;
+  }
+  .monogram-letter::first-letter {
+    font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+  }
+  .hero h1 { font-size: clamp(2rem, 8vw, 3.25rem); overflow-wrap: anywhere; }
+  .tagline { font-size: 1.125rem; margin-top: 0.75rem; max-width: 36rem; }
+  .locale { color: var(--hero-muted); margin-top: 0.5rem; font-weight: 600; }
+  .actions { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 3rem; padding: 0.75rem 1.25rem;
+    border-radius: 999px; border: 2px solid transparent;
+    font-weight: 700; text-decoration: none; text-align: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+  .btn-secondary { background: transparent; color: var(--hero-text); border-color: currentColor; }
+  .btn-secondary:hover { background: var(--hero-text); color: var(--hero-from); }
+  .btn-outline { background: transparent; color: var(--link); border-color: currentColor; }
+  .btn-outline:hover { background: var(--link); color: var(--surface); }
+
+  .page-nav { position: relative; z-index: 1; border-top: 1px solid var(--shape-1); }
+  .page-nav ul {
+    list-style: none; margin: 0 auto; padding: 0.5rem 1rem;
+    max-width: 60rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem;
+  }
+  .page-nav a {
+    display: inline-block; padding: 0.5rem 0; color: var(--hero-text);
+    font-weight: 600; text-decoration: none;
+  }
+  .page-nav a:hover { text-decoration: underline; }
+
+  /* Services vs Menu wording follows the theme */
+  .label-menu { display: none; }
+  .theme-restaurant .label-services { display: none; }
+  .theme-restaurant .label-menu { display: inline; }
+
+  /* Sections */
+  main { display: block; padding: 2rem 0 2.5rem; }
+  main:focus { outline: none; }
+  .section { scroll-margin-top: 4rem; margin-bottom: 2rem; }
+  .section h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .item-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .item-list li {
+    position: relative; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+  }
+  .item-list li::before {
+    content: ""; position: absolute; left: 1rem; top: 1.35rem;
+    width: 0.6rem; height: 0.6rem; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .hours-list { list-style: none; margin: 0; padding: 0; }
+  .hours-list li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+  .hours-list li:last-child { border-bottom: 0; }
+  address { font-style: normal; }
+  .contact-list { margin: 0 0 1.25rem; }
+  .contact-list dt {
+    color: var(--muted); font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .contact-list dd { margin: 0.15rem 0 1rem; overflow-wrap: anywhere; }
+  .contact-list dd:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .site-footer {
+    border-top: 1px solid var(--border); background: var(--surface);
+    color: var(--muted); font-size: 0.9rem; padding: 1.5rem 0 2rem;
+  }
+  .site-footer .footnote { font-size: 0.8rem; margin-top: 0.35rem; }
+
+  @media (min-width: 40rem) {
+    .hero-inner { padding-top: 4rem; padding-bottom: 2.5rem; }
+    .actions { flex-direction: row; flex-wrap: wrap; }
+    .item-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+    .two-col .section { margin-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body class="theme-salon">
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<aside class="preview-banner" aria-label="Preview notice">
+  <p>Preview concept by {{AGENCY_NAME}} — not an official website of {{BUSINESS_NAME}}</p>
+</aside>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="monogram" aria-hidden="true"><span class="monogram-letter">{{BUSINESS_NAME}}</span></span>
+    <h1>{{BUSINESS_NAME}}</h1>
+    <p class="tagline">{{TAGLINE}}</p>
+    <p class="locale">{{AREA}}, Hyderabad</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="tel:{{BUSINESS_PHONE}}">Call {{BUSINESS_PHONE}}</a>
+      <a class="btn btn-secondary" href="{{MAPS_URL}}">Get directions</a>
+    </div>
+  </div>
+  <nav class="page-nav" aria-label="On this page">
+    <ul>
+      <li><a href="#services"><span class="label-services">Services</span><span class="label-menu">Menu</span></a></li>
+      <li><a href="#hours">Opening hours</a></li>
+      <li><a href="#contact">Location &amp; contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+  <div class="wrap">
+    <section class="section" id="services" aria-labelledby="services-title">
+      <h2 id="services-title"><span class="label-services">Services</span><span class="label-menu">Menu</span></h2>
+      <ul class="item-list">
+        {{SERVICES_LIST_HTML}}
+      </ul>
+    </section>
+
+    <div class="two-col">
+      <section class="section" id="hours" aria-labelledby="hours-title">
+        <h2 id="hours-title">Opening hours</h2>
+        <div class="card">
+          <ul class="hours-list">
+            {{HOURS_HTML}}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Location &amp; contact</h2>
+        <div class="card">
+          <address>
+            <dl class="contact-list">
+              <dt>Address</dt>
+              <dd>{{ADDRESS}}</dd>
+              <dt>Phone</dt>
+              <dd><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></dd>
+            </dl>
+          </address>
+          <a class="btn btn-outline" href="{{MAPS_URL}}">Get directions</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Demo built by {{AGENCY_NAME}} · {{SENDER_NAME}} · {{PHONE}}</p>
+    <p class="footnote">Concept preview only. Details come from public listings; please confirm them directly with the business.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+  "name": "hyd-outreach-optouts",
+  "description": "opted-out/<slug>.md for every business that asked not to be contacted. Read-only for the agent; written only by the agency (./launch.sh optout)."
+}

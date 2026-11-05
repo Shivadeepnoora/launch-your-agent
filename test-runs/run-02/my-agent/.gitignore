@@ -1,0 +1,9 @@
+.env
+*.txt
+!first_prompt.txt
+out/
+IDS.env
+.env.*
+sessions.log
+deployment.json
+evals/results-*

@@ -1,0 +1,9 @@
+{
+  "name": "hyd-website-outreach-env",
+  "config": {
+    "type": "cloud",
+    "networking": {
+      "type": "unrestricted"
+    }
+  }
+}
