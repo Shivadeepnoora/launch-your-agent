@@ -1,0 +1,17 @@
+diff --git a/.claude/skills/launch-your-agent/references/mock-connectors.md b/.claude/skills/launch-your-agent/references/mock-connector-patterns.md
+similarity index 100%
+rename from .claude/skills/launch-your-agent/references/mock-connectors.md
+rename to .claude/skills/launch-your-agent/references/mock-connector-patterns.md
+diff --git a/ui/overview.css b/ui/overview.css
+index 305652a..76e575a 100644
+--- a/ui/overview.css
++++ b/ui/overview.css
+@@ -9,7 +9,7 @@
+   /* warm paper palette (light) */
+   --bg:#faf9f5; --panel:#ffffff; --inset:#f0eee6; --ink:#141413; --body:#3d3d3a; --sub:#73726c; --mut:#9c9a92;
+   --hairline:rgba(20,20,19,.12); --hairline-soft:rgba(20,20,19,.07);
+-  --live:#22865c; --live-bright:#1d7a52; --clay:#ad5724; --amber:#9a7d24; --ghost:#b0aea5;
++  --live:#22865c; --live-bright:#1d7a52; --clay:#b5602d; --amber:#9a7d24; --ghost:#b0aea5;
+   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ }
+ * { box-sizing:border-box; }
