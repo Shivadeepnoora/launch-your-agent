@@ -44,8 +44,8 @@ When you're done (or any time later), `/wrap-up` refreshes the overview page, re
 | `.claude/skills/launch-your-agent/` | The main skill: 4 phases (interview → stage & launch → grade & iterate → run without you) + references (interview mapping, verified API call shapes, examples bank, overview template) |
 | `.claude/skills/wrap-up/` | Companion skill: explicit close-out / status check for a built agent |
 | `cma-primitives.md` | Inventory of CMA primitives and limits, from the public docs |
-| `interview-to-config.md` | Background: how interview answers map to CMA primitives |
-| `examples-bank.md` | Sourced example agents and production proof points |
+| `.claude/skills/launch-your-agent/references/interview.md` | How interview answers map to CMA primitives |
+| `.claude/skills/launch-your-agent/references/examples-bank.md` | Sourced example agents and production proof points |
 | `ui/` | Example overview page + build sheet |
 
 The CMA documentation is the source of truth for the API: https://platform.claude.com/docs/en/managed-agents/overview
