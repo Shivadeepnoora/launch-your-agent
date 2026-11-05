@@ -1,0 +1,3 @@
+Produce this week's 3 Tiny Tots Rhymes story packs.
+
+Follow your standing instructions: read used-rhymes.md in the memory store first, pick 3 traditional nursery rhymes not used before, give each its own story angle, setting and lesson, and write pack-1, pack-2 and pack-3 (script.md, metadata.md, thumbnail-prompt.md, thumbnail.png) plus SUMMARY.md into /mnt/session/outputs/. Then append this week's picks to used-rhymes.md, dated with today's date as of this run.

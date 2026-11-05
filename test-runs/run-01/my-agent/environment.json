@@ -1,0 +1,14 @@
+{
+  "name": "tiny-tots-rhymes-env",
+  "config": {
+    "type": "cloud",
+    "networking": {
+      "type": "unrestricted"
+    },
+    "packages": {
+      "pip": [
+        "pillow"
+      ]
+    }
+  }
+}

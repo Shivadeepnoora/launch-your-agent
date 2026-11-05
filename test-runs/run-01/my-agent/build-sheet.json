@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "founder": null,
+    "company": "Tiny Tots Rhymes (YouTube channel)",
+    "problem": "A YouTube automation for kids videos that generates income: nursery rhyme stories for toddlers — scripts, titles and thumbnails, weekly.",
+    "created": "2026-11-05",
+    "skill_version": "0.1"
+  },
+  "agent": {
+    "name": "tiny-tots-rhymes-weekly",
+    "model": "PICKED-AT-LAUNCH",
+    "model_rationale": "Newest Opus-class — the default; creative quality and policy judgment matter more than speed, and a weekly run still costs cents.",
+    "version": null,
+    "system_summary": "Each week writes 3 nursery-rhyme story packs for toddlers (script with scene notes, title, description, tags, thumbnail image prompt, drawn thumbnail.png mockup) in a bright 2D cartoon style for the Tiny Tots Rhymes channel; checks and updates the memory store so rhymes and story angles never repeat; writes everything to /mnt/session/outputs/.",
+    "style_reference": "Super Simple Songs — style only (short, plain-English titles in the 'Song Name | Kids Songs' pattern, calm parent-facing descriptions, simple repetitive sing-along structure). Never copy its titles, lyrics, original songs, arrangements or characters.",
+    "never_dos": [
+      "Never upload, post or publish anything — drafts only; the founder produces and uploads",
+      "Never use copyrighted characters, brands, modern songs or another channel's original songs or arrangements (including Super Simple Songs originals) — traditional public-domain rhymes only",
+      "Never write scary, unsafe-to-imitate or age-inappropriate content for toddlers",
+      "Never write misleading titles, thumbnails or descriptions"
+    ]
+  },
+  "outcome": {
+    "description": "Produce this week's 3 Tiny Tots Rhymes story packs in /mnt/session/outputs/ and update the memory store.",
+    "rubric_criteria": [
+      "3 complete packs, each with: script (2-4 min, scene notes for bright 2D cartoon), YouTube title (<= 70 characters), description, tags, thumbnail image-generator prompt, and thumbnail.png mockup",
+      "Public-domain rhymes only — traditional rhymes; no copyrighted characters, brands or modern song lyrics",
+      "Toddler-appropriate — simple words, positive tone, nothing scary or unsafe to imitate; fits YouTube's 'made for kids' label",
+      "No repeats — none of the 3 rhymes or story angles already appears in the memory store, and the store is updated with this week's picks",
+      "Genuinely different — each pack has its own story angle, setting and lesson; not one template with names swapped",
+      "Honest metadata — titles and thumbnails match the content; no misleading clickbait"
+    ],
+    "max_iterations": 3
+  },
+  "tools": {
+    "toolset": "agent_toolset_20260401",
+    "enabled": ["bash", "read", "write", "edit", "glob", "grep", "web_search", "web_fetch"],
+    "disabled": [],
+    "permission_overrides": [],
+    "custom_tools": []
+  },
+  "connections": {
+    "mcp_servers": [],
+    "vault_credentials": [],
+    "github": null,
+    "notes": "v0 delivers files only. v1: Google Drive (or email) delivery via MCP connector + vault credential."
+  },
+  "skills": [],
+  "memory": {
+    "stores": [
+      {
+        "name": "tiny-tots-rhymes-history",
+        "access": "read_write",
+        "purpose": "Rhymes and story angles already used (with week), so each weekly run picks fresh ones."
+      }
+    ]
+  },
+  "environment": {
+    "name": "tiny-tots-rhymes-env",
+    "type": "cloud",
+    "networking": "unrestricted",
+    "allowed_hosts": [],
+    "packages": {"pip": ["pillow"]}
+  },
+  "schedule": {
+    "mode": "scheduled",
+    "cron": "0 18 * * 0",
+    "timezone": "Asia/Kolkata",
+    "human": "Every Sunday at 6:00 PM IST",
+    "kickoff": "user.define_outcome (task + rubric above), relative dates only ('this week')"
+  },
+  "evals": {
+    "cases": [
+      {"name": "case-01", "input": "evals/case-01/", "expected": "This week's verified packs, saved at close (no golden set yet)", "last_verdict": null}
+    ],
+    "notes": "No past videos yet: the Outcome rubric is the per-run grader; the first verified run becomes case-01's expected output, the regression baseline for later agent versions. Super Simple Songs is a style reference only, not an answer key."
+  },
+  "defaults_applied": {
+    "iteration_bound": "Outcome stops after 3 grade-and-improve cycles",
+    "write_actions": "None — the agent drafts, the founder produces and uploads"
+  },
+  "interface": {
+    "who": "Channel owner",
+    "how": "Packs land as session output files; download from the Console or Files API."
+  },
+  "next_directions": [
+    {
+      "version": "v1",
+      "what": "Deliver packs to Google Drive (or as an email) automatically",
+      "reason_class": "needs a credential",
+      "how": "Google Drive MCP server + vault mcp_oauth credential; always_ask gate on writes"
+    },
+    {
+      "version": "v1",
+      "what": "Voiceover audio per script",
+      "reason_class": "needs a credential",
+      "how": "Text-to-speech API key in a vault (environment_variable credential); agent calls it from bash and saves narration.mp3 per pack"
+    },
+    {
+      "version": "v2",
+      "what": "Assemble a draft video (images + voiceover + captions)",
+      "reason_class": "scheduled for a later version",
+      "how": "Image-generation API credential + ffmpeg in the environment packages; agent renders a rough-cut .mp4 per pack for the founder to review"
+    },
+    {
+      "version": "v2",
+      "what": "Upload to YouTube as private drafts",
+      "reason_class": "needs a credential",
+      "how": "YouTube Data API OAuth via a custom tool or MCP server + vault; always_ask gate; uploads as private, marked made-for-kids, founder publishes"
+    },
+    {
+      "version": "v2",
+      "what": "Learn from channel analytics (which rhymes and titles perform)",
+      "reason_class": "needs a credential",
+      "how": "YouTube Analytics API read access via vault credential; agent writes a weekly 'what worked' note into the memory store"
+    },
+    {
+      "version": "ongoing",
+      "what": "Re-run evals before promoting any new agent version to the deployment",
+      "reason_class": "process habit",
+      "how": "evals/run-evals.sh against the new version; only update the deployment when verdicts hold"
+    }
+  ],
+  "ids": {}
+}
